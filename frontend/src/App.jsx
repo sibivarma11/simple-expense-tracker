@@ -17,17 +17,18 @@ const App = () => {
   return (
     <div className="container">
       <h1>Simple Expense Tracker</h1>
+
+      <div className="summary-section">
+        <Summary />
+      </div>
+
       <div className="dashboard">
-        <div className="left-panel">
-          <AddExpense />
-          <Summary />
-        </div>
-        <div className="right-panel">
-          <ExpenseList />
-        </div>
+        <AddExpense />
+        <ExpenseList />
       </div>
     </div>
   )
 }
+
 
 export default App

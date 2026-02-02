@@ -24,18 +24,18 @@ h1 {
   font-size: 2.5rem;
 }
 
+.summary-section {
+  margin-bottom: 2.5rem;
+}
+
 .dashboard {
   display: grid;
   grid-template-columns: 400px 1fr;
   gap: 2.5rem;
+  align-items: stretch;
 }
 
-.left-panel,
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+/* Panels are no longer needed as direct grid children are styled */
 
 .add-expense-form {
   background: white;
@@ -46,6 +46,7 @@ h1 {
   flex-direction: column;
   gap: 1.25rem;
   border: 1px solid #f1f5f9;
+  height: 100%;
 }
 
 .add-expense-form input,
@@ -87,16 +88,25 @@ h1 {
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   border-top: 4px solid #2563eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .summary-card h3 {
-  margin-top: 0;
+  margin: 0;
   color: #1e293b;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  flex: 1;
+  min-width: 200px;
 }
 
 .category-breakdown {
-  margin-top: 1.5rem;
+  margin-top: 0;
+  flex: 1;
+  min-width: 250px;
 }
 
 .category-item {
@@ -112,6 +122,9 @@ h1 {
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .list-header {
@@ -147,6 +160,9 @@ h1 {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
 }
 
 .expense-list li {
