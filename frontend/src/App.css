@@ -1,19 +1,22 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  max-width: 100% !important;
+  margin: 0;
+  padding: 60px 140px 140px 140px;
+  box-sizing: border-box;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: #1a1a1a;
   background-color: #fcfcfc;
   min-height: 100vh;
 }
+
 
 h1 {
   text-align: center;
@@ -62,8 +65,9 @@ h1 {
 .add-expense-form select:focus {
   outline: none;
   border-color: #3b82f6;
-  ring: 2px solid #bfdbfe;
+  box-shadow: 0 0 0 2px #bfdbfe;
 }
+
 
 .add-expense-form button {
   padding: 1rem;
@@ -129,7 +133,7 @@ h1 {
 
 .list-header {
   display: flex;
-  justify-content: space-between;
+  gap: 1rem;
   align-items: center;
   margin-bottom: 2rem;
 }
@@ -176,6 +180,7 @@ h1 {
 .item-info {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.25rem;
   flex: 2;
 }
