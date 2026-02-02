@@ -16,8 +16,9 @@ const Summary = () => {
       <h3>Total Expense: ₹{summary?.total || 0}</h3>
 
       {chartData.length > 0 && (
-        <div style={{ width: '100%', height: 250, marginTop: '1rem' }}>
-          <ResponsiveContainer>
+        <div className="chart-container">
+          <ResponsiveContainer width="100%" height="100%">
+
             <PieChart>
               <Pie
                 data={chartData}
