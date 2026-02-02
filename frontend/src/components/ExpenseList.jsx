@@ -1,27 +1,42 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { fetchExpenses, fetchSummary } from "../store/expenseSlice";
-import { Trash2, Filter } from "lucide-react";
+import { fetchExpenses, fetchSummary, setEditingExpense } from "../store/expenseSlice";
+import { Trash2, Filter, Edit3, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const API_URL = "http://localhost:8006/api/expense";
 
 const ExpenseList = () => {
   const [filter, setFilter] = useState("All");
-  const expenses = useSelector(state => state.expenses.list);
+  const { list: expenses, loading } = useSelector(state => state.expenses);
   const dispatch = useDispatch();
 
   const remove = async (id) => {
     if (!window.confirm("Are you sure you want to delete this expense?")) return;
-    await axios.delete(`${API_URL}/${id}`);
-    dispatch(fetchExpenses());
-    dispatch(fetchSummary());
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      toast.success("Expense deleted");
+      dispatch(fetchExpenses());
+      dispatch(fetchSummary());
+    } catch (err) {
+      toast.error("Failed to delete");
+    }
   };
 
   const categories = ["All", ...new Set(expenses.map(e => e.category))];
   const filteredExpenses = filter === "All"
     ? expenses
     : expenses.filter(e => e.category === filter);
+
+  if (loading && expenses.length === 0) {
+    return (
+      <div className="expense-list loading-container">
+        <Loader2 className="spinner" size={48} />
+        <p>Loading expenses...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="expense-list">
@@ -44,9 +59,14 @@ const ExpenseList = () => {
               <span className="cat">{e.category}</span>
             </div>
             <span className="amt">₹{e.amount}</span>
-            <button className="delete-btn" onClick={() => remove(e._id)}>
-              <Trash2 size={18} />
-            </button>
+            <div className="list-actions">
+              <button className="edit-btn" onClick={() => dispatch(setEditingExpense(e))}>
+                <Edit3 size={18} />
+              </button>
+              <button className="delete-btn" onClick={() => remove(e._id)}>
+                <Trash2 size={18} />
+              </button>
+            </div>
           </li>
         ))}
       </ul>
@@ -55,5 +75,3 @@ const ExpenseList = () => {
 };
 
 export default ExpenseList;
-
-
