@@ -37,6 +37,22 @@ router.delete("/:id", async (req, res) => {
   res.json({ message: "Expense deleted" });
 });
 
+//Update Expense
+router.put("/:id", async (req, res) => {
+  const { error } = schema.validate(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
+
+  const expense = await Expense.findByIdAndUpdate(
+    req.params.id,
+    { ...req.body },
+    { new: true }
+  );
+
+  if (!expense) return res.status(404).json("Expense not found");
+  res.json(expense);
+});
+
+
 //Summary
 router.get("/summary", async (req, res) => {
   const expenses = await Expense.find({ userId: USER_ID });
